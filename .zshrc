@@ -1,5 +1,5 @@
-export GITHUB_TOKEN=012623d2a8a62aded2fa7b6b1e16ad94b2825308
-
+# Load in private keys
+source ~/.zsh_keys
 
 export TERM=xterm-256color
 # If you come from bash you might have to change your $PATH.
