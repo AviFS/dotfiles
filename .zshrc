@@ -1,3 +1,132 @@
+# Start configuration added by Zim install {{{
+#
+# User configuration sourced by interactive shells
+#
+
+# -----------------
+# Zsh configuration
+# -----------------
+
+#
+# History
+#
+
+# Remove older command from the history if a duplicate is to be added.
+setopt HIST_IGNORE_ALL_DUPS
+
+#
+# Input/output
+#
+
+# Set editor default keymap to emacs (`-e`) or vi (`-v`)
+bindkey -e
+
+# Prompt for spelling correction of commands.
+#setopt CORRECT
+
+# Customize spelling correction prompt.
+#SPROMPT='zsh: correct %F{red}%R%f to %F{green}%r%f [nyae]? '
+
+# Remove path separator from WORDCHARS.
+WORDCHARS=${WORDCHARS//[\/]}
+
+
+# --------------------
+# Module configuration
+# --------------------
+
+#
+# completion
+#
+
+# Set a custom path for the completion dump file.
+# If none is provided, the default ${ZDOTDIR:-${HOME}}/.zcompdump is used.
+#zstyle ':zim:completion' dumpfile "${ZDOTDIR:-${HOME}}/.zcompdump-${ZSH_VERSION}"
+
+#
+# git
+#
+
+# Set a custom prefix for the generated aliases. The default prefix is 'G'.
+#zstyle ':zim:git' aliases-prefix 'g'
+
+#
+# input
+#
+
+# Append `../` to your input for each `.` you type after an initial `..`
+#zstyle ':zim:input' double-dot-expand yes
+
+#
+# termtitle
+#
+
+# Set a custom terminal title format using prompt expansion escape sequences.
+# See http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html#Simple-Prompt-Escapes
+# If none is provided, the default '%n@%m: %~' is used.
+#zstyle ':zim:termtitle' format '%1~'
+
+#
+# zsh-autosuggestions
+#
+
+# Customize the style that the suggestions are shown with.
+# See https://github.com/zsh-users/zsh-autosuggestions/blob/master/README.md#suggestion-highlight-style
+#ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=242'
+
+#
+# zsh-syntax-highlighting
+#
+
+# Set what highlighters will be used.
+# See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+
+# Customize the main highlighter styles.
+# See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters/main.md#how-to-tweak-it
+#typeset -A ZSH_HIGHLIGHT_STYLES
+#ZSH_HIGHLIGHT_STYLES[comment]='fg=242'
+
+# ------------------
+# Initialize modules
+# ------------------
+
+if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
+  # Update static initialization script if it does not exist or it's outdated, before sourcing it
+  source ${ZIM_HOME}/zimfw.zsh init -q
+fi
+source ${ZIM_HOME}/init.zsh
+
+# ------------------------------
+# Post-init module configuration
+# ------------------------------
+
+#
+# zsh-history-substring-search
+#
+
+# Bind ^[[A/^[[B manually so up/down works both before and after zle-line-init
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+# Bind up and down keys
+zmodload -F zsh/terminfo +p:terminfo
+if [[ -n ${terminfo[kcuu1]} && -n ${terminfo[kcud1]} ]]; then
+  bindkey ${terminfo[kcuu1]} history-substring-search-up
+  bindkey ${terminfo[kcud1]} history-substring-search-down
+fi
+
+bindkey '^P' history-substring-search-up
+bindkey '^N' history-substring-search-down
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+# }}} End configuration added by Zim install
+
+
+
+
+#### PREV TOP #####
+
 # Load in private keys
 source ~/.zsh_keys
 
@@ -6,13 +135,13 @@ export TERM=xterm-256color
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/avi/.oh-my-zsh"
+# export ZSH="/Users/avi/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="spaceship"
+# ZSH_THEME="spaceship"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -72,9 +201,9 @@ ZSH_THEME="spaceship"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+# plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
-source $ZSH/oh-my-zsh.sh
+# source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -103,7 +232,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-bindkey '^ ' autosuggest-accept
+# bindkey '^ ' autosuggest-accept
 
 # Declare the variable
 #typeset -A ZSH_HIGHLIGHT_STYLES
@@ -120,6 +249,7 @@ bindkey '^ ' autosuggest-accept
 
 # alias frink="java -cp ~/Downloads/frink.jar frink.gui.FrinkStarter" $ Already made executable
 
+# Uncomment for Avi-made prompt #homemade
 PROMPT='%(?.%F{green}$.%F{red}$)%f '
 
 
@@ -132,10 +262,9 @@ ensure_tmux_is_running() {
     tat
   fi
 }
-
 # ensure_tmux_is_running
 
-PATH=$PATH:/Users/avi/my/code/scripts/bin
+PATH=$PATH:/Users/avi/my/code/bin
 PATH=$PATH:/Users/avi/my
 PATH=$PATH:/Users/avi/my/code
 CDPATH=$CDPATH:/Users/avi/my
@@ -153,12 +282,12 @@ export MANPAGER="col -b | vim --noplugin -c 'set ft=man ts=8 nomod nolist nonu n
 ### qmerge out.pdf  a.pdf b.pdf c.pdf
 ### qsplit out.pdf in.pdf 1-10
 qmerge() { qpdf --empty --pages ${@:2} -- $1; }
-qsplit() { qpdf $1 --pages . ${@:3} -- $2; }
+# qsplit() { qpdf $1 --pages . ${@:3} -- $2; }
 
 
 alias vimrc='vim ~/.vimrc'
 alias zshrc='vim ~/.zshrc'
-alias tconf='vim ~/.tmux.conf'
+alias tmuxrc='vim ~/.tmux.conf'
 alias ls='exa'
 alias p3='python3'
 alias rm='trash'
@@ -166,6 +295,9 @@ alias rm='trash'
 alias cmdk='clear && printf "\e[3J"'
 alias kk='clear && printf "\e[3J"'
 alias l='clear && printf "\e[3J"'
+
+# LANGS
+alias red="~/Downloads/red-26may21-9b645b936"
 
 
 manp()
@@ -175,3 +307,41 @@ man -t $* | open -f -a /Applications/Preview.app/
 
 # alias find='fd'
 alias apl='cd / && ./Applications/Dyalog-18.0.app/Contents/Resources/Dyalog/mapl -b'
+
+
+
+# $ brew link ruby
+# Warning: Refusing to link macOS provided/shadowed software: ruby
+# If you need to have ruby first in your PATH, run:
+  # echo 'export PATH="/usr/local/opt/ruby/bin:$PATH"' >> ~/.zshrc
+
+# For compilers to find ruby you may need to set:
+  export LDFLAGS="-L/usr/local/opt/ruby/lib"
+  export CPPFLAGS="-I/usr/local/opt/ruby/include"
+
+# For pkg-config to find ruby you may need to set:
+  export PKG_CONFIG_PATH="/usr/local/opt/ruby/lib/pkgconfig"
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+
+# Homebrew should take precedence over macOS system defaults
+# See https://stackoverflow.com/questions/8730676/how-can-i-switch-to-ruby-1-9-3-installed-using-homebrew
+export PATH=/usr/local/bin:$PATH
+
+
+# eval "$(starship init zsh)"
+
+
+
+alias zimrc="vi ~/.zimrc"
+
+export EDITOR="vim"
+
+alias mapl="/Applications/Dyalog-18.0.app/Contents/Resources/Dyalog/mapl"
+alias apl="/Applications/Dyalog-18.0.app/Contents/Resources/Dyalog/mapl"
+alias tailwind="npx tailwindcss-cli build -i css/tailwind.css -o build/tailwind.css -c tailwind.config.js --watch --jit"

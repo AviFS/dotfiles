@@ -309,10 +309,12 @@ vnoremap <leader>d :VtrSendLinesToRunner<cr>
   nnoremap j gj
   nnoremap k gk
 
-  autocmd InsertLeave * update
 
   " set rnu
-  autocmd TextChanged <buffer> silent write
+  
+  " AUTOSAVES
+  " autocmd InsertLeave * update
+  " autocmd TextChanged <buffer> silent write
 
 
   " BEGIN: https://tpaschalis.github.io/macos-latex-vim/
@@ -589,3 +591,10 @@ vnoremap <leader>d :VtrSendLinesToRunner<cr>
   " imap <C-K>f :pyf /var2/lopt/llvm/tools/clang/tools/clang-format/clang-format.py<cr>
 
 " vim:set ft=vim et sw=2:
+
+
+function L1(command)
+    silent w|echo(system(a:command."|l1"))
+endfunction
+
+command! -nargs=1 L1 call L1(<f-args>)
