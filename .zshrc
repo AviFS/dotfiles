@@ -345,3 +345,23 @@ export EDITOR="vim"
 alias mapl="/Applications/Dyalog-18.0.app/Contents/Resources/Dyalog/mapl"
 alias apl="/Applications/Dyalog-18.0.app/Contents/Resources/Dyalog/mapl"
 alias tailwind="npx tailwindcss-cli build -i css/tailwind.css -o build/tailwind.css -c tailwind.config.js --watch --jit"
+
+export ONI_NEOVIM_PATH="/usr/local/bin/nvim"
+export GOPATH="/Users/avi/my/code/langs/go"
+export GOROOT="/usr/local/go"
+export GOBIN="/Users/avi/my/code/bin"
+
+
+# Accept fish-style suggestions with Ctrl+Space
+bindkey '^ ' autosuggest-accept
+
+# Setup Wails
+# https://wails.app/gettingstarted/mac/
+export GO111MODULE=on
+export CGO_ENABLED=1
+export PATH=$PATH:~/go/bin
+alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --disable-web-security --user-data-dir=~/.chrome-disable-web-security"
+alias webl="webly; kill -9 \$(lsof -t -i:5000)"
+
+
+alias tinylisp='python3 ~/my/code/bin/Esolangs/tinylisp/tinylisp.py'

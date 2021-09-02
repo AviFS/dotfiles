@@ -598,3 +598,26 @@ function L1(command)
 endfunction
 
 command! -nargs=1 L1 call L1(<f-args>)
+
+
+" Hide status bar
+let s:hidden_all = 0
+function! ToggleHiddenAll()
+    if s:hidden_all  == 0
+        let s:hidden_all = 1
+        set noshowmode
+        set noruler
+        set laststatus=0
+        set noshowcmd
+        " set nonumber
+    else
+        let s:hidden_all = 0
+        set showmode
+        set ruler
+        set laststatus=2
+        set showcmd
+        " set number
+    endif
+endfunction
+
+nnoremap <leader>hid :call ToggleHiddenAll()<CR>
